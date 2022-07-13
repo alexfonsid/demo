@@ -5,15 +5,23 @@ import java.util.Set;
 
 @Entity
 public class Cabinet {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String number;
     String name;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "department_id")
-    Set<Department> department;
+    @ManyToOne
+    Department department;
+
+    public Cabinet() {
+    }
+
+    public Cabinet(int id, String number, String name, Department department) {
+        this.id = id;
+        this.number = number;
+        this.name = name;
+        this.department = department;
+    }
 
     public int getId() {
         return id;
@@ -39,11 +47,11 @@ public class Cabinet {
         this.name = name;
     }
 
-    public Set<Department> getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(Set<Department> department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 }

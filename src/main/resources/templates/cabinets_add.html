@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление кабинетов</title>
+</head>
+<body>
+<div align="center">
+    Добавление нового кабинета
+    <br>
+    <a th:href="cabinets">Отмена</a>
+    <br>
+    <br>
+    <form action="cabinets-add" method="post">
+        <table border="1">
+            <tr>
+                <td>Номер кабинета</td>
+                <td>
+                    <input type="number" name="number">
+                </td>
+            </tr>
+            <tr>
+                <td>Название кабинета</td>
+                <td>
+                    <input type="text" name="name">
+                </td>
+            </tr>
+            <tr>
+                <td>К какому отделу относится</td>
+                <td>
+                    <select name="department">
+                        <th:block th:each="department : ${departments}">
+                            <option th:value="${department.id}" th:text="${department.name}"/>
+                        </th:block>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <button type="submit">Добавить новый кабинет</button>
+    </form>
+</div>
+</body>
+</html>

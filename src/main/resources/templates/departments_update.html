@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование отделов</title>
+</head>
+<body>
+<div align="center">
+    Редактировать отдел
+    <br>
+    <a th:href="departments">Отмена</a>
+    <br>
+    <br>
+    <form action="departments-add" method="post" th:object="${department}">
+        <input type="hidden" th:field="*{id}">
+        <table border="1">
+            <tr>
+                <td>
+                    Название отдела
+                </td>
+                <td>
+                    <input type="text" name="name" th:field="*{name}">
+                </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <button type="submit"> Внести изменения </button>
+    </form>
+</div>
+</body>
+</html>

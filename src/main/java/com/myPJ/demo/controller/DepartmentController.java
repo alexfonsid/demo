@@ -34,7 +34,7 @@ public class DepartmentController {
     public String updateDepartment(@RequestParam int id, Model model) {
         Department department = departmentRepository.findById(id).get();
         model.addAttribute("department", department);
-        return "departmentsUpdate";
+        return "departments_update";
     }
 
     @PostMapping("/departments-update")
@@ -45,7 +45,7 @@ public class DepartmentController {
 
     @GetMapping("/departments-add")
     public String addDepartment() {
-        return "departmentsAdd";
+        return "departments_add";
     }
 
     @PostMapping("/departments-add")
