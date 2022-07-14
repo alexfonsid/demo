@@ -6,27 +6,30 @@
 </head>
 <body>
 <div align="center">
-    Редактировать отдел
-    <br>
-    <a th:href="departments">Отмена</a>
-    <br>
-    <br>
-    <form action="departments-add" method="post" th:object="${department}">
-        <input type="hidden" th:field="*{id}">
-        <table border="1">
-            <tr>
-                <td>
-                    Название отдела
-                </td>
-                <td>
-                    <input type="text" name="name" th:field="*{name}">
-                </td>
-            </tr>
-        </table>
+    <div>
         <br>
-        <br>
-        <button type="submit"> Внести изменения </button>
-    </form>
+        <a href="departments">Вернуться к списку отделов</a>
+    </div>
+    <h3>
+        Редактировать отдел
+    </h3>
+    <div>
+        <form action="departments-add" method="post" th:object="${department}">
+            <input type="hidden" th:field="*{id}">
+            <table border="1">
+                <tr>
+                    <td>
+                        Название отдела
+                    </td>
+                    <td>
+                        <input type="text" name="name" th:field="*{name}">
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit">Изменить</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

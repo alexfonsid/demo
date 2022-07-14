@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Добавление кабинетов</title>
+    <title>Редактирование кабинета</title>
 </head>
 <body>
 <div align="center">
@@ -11,25 +11,32 @@
         <a href="cabinets">Вернуться к списку кабинетов</a>
     </div>
     <h3>
-        Добавление нового кабинета
+        Редактировать кабинет
     </h3>
     <div>
-        <form action="cabinets-add" method="post">
+        <form action="cabinets-update" method="post" th:object="${cabinet}">
+            <input type="hidden" th:field="*{id}">
             <table border="1">
                 <tr>
-                    <td>Номер кабинета</td>
                     <td>
-                        <input type="number" name="number">
+                        Номер кабинета
+                    </td>
+                    <td>
+                        <input type="number" name="number" th:field="*{number}">
                     </td>
                 </tr>
                 <tr>
-                    <td>Название кабинета</td>
                     <td>
-                        <input type="text" name="name">
+                        Название кабинета
+                    </td>
+                    <td>
+                        <input type="text" name="name" th:field="*{name}">
                     </td>
                 </tr>
                 <tr>
-                    <td>Выберите отдел</td>
+                    <td>
+                        Отдел
+                    </td>
                     <td>
                         <select name="department">
                             <th:block th:each="department : ${departments}">
@@ -40,7 +47,7 @@
                 </tr>
             </table>
             <br>
-            <button type="submit">Добавить</button>
+            <button type="submit">Изменить</button>
         </form>
     </div>
 </div>

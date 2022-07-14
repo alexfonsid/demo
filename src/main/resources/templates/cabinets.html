@@ -5,39 +5,51 @@
     <title>Кбинеты</title>
 </head>
 <body>
-<div>
-    <a href="main">Вернуться на главную страницу</a>
-</div>
-<br>
-Cabinets!
-<div>
-    <table border="1">
-        <tr>
-            <th>id</th>
-            <th>number</th>
-            <th>name</th>
-            <th>department</th>
-            <th>update</th>
-            <th>Удаление</th>
-        </tr>
-        <tr th:each="cabinet:${cabinets}">
-            <td th:text="${cabinet.id}"></td>
-            <td th:text="${cabinet.number}"></td>
-            <td th:text="${cabinet.name}"></td>
-            <td th:text="${cabinet.department.name}"></td>
-            <td bgcolor="green">
-                <a th:href="@{cabinets-update(id=${cabinet.id})}">Редактировать</a>
-            </td>
-            <td bgcolor="red">
-                <a th:href="@{cabinets-delete(id=${cabinet.id})}">Удалить</a>
-            </td>
-        </tr>
-    </table>
-</div>
-<br>
-<br>
-<div>
-    <a href="cabinets-add">Добавить новый кабинет</a>
+<div align="center">
+    <div>
+        <br>
+        <a href="main">Вернуться на главную страницу</a>
+    </div>
+    <h1>
+        КАБИНЕТЫ
+    </h1>
+    <div>
+        <br>
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>Номер кабинета</th>
+                <th>Название кабинета</th>
+                <th>Отдел</th>
+                <th>Редактирование</th>
+                <th>Удаление</th>
+            </tr>
+            <tr th:each="cabinet:${cabinets}">
+                <td th:text="${cabinet.id}"></td>
+                <td th:text="${cabinet.number}"></td>
+                <td th:text="${cabinet.name}"></td>
+                <td th:text="${cabinet.department.name}"></td>
+                <td>
+                    <a th:href="@{cabinets-update(id=${cabinet.id})}">
+                        <p style="color:#00007f">
+                            Редактировать
+                        </p>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{cabinets-delete(id=${cabinet.id})}">
+                        <p style="color:#ff0000">
+                            Удалить
+                        </p>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <br>
+        <a href="cabinets-add">Добавить новый кабинет</a>
+    </div>
 </div>
 </body>
 </html>

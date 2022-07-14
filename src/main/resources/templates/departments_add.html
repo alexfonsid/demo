@@ -6,26 +6,29 @@
 </head>
 <body>
 <div align="center">
-    Добавление нового отдела
-    <br>
-    <a th:href="departments">Отмена</a>
-    <br>
-    <br>
-    <form action="departments-add" method="post">
-        <table border="1">
-            <tr>
-                <td>
-                    Название отдела
-                </td>
-                <td>
-                    <input type="text" name="name">
-                </td>
-            </tr>
-        </table>
+    <div>
         <br>
-        <br>
-        <button type="submit"> Добавить новый отдел </button>
-    </form>
+        <a href="departments">Вернуться к списку отделов</a>
+    </div>
+    <h3>
+        Добавление нового отдела
+    </h3>
+    <div>
+        <form action="departments-add" method="post">
+            <table border="1">
+                <tr>
+                    <td>
+                        Название отдела
+                    </td>
+                    <td>
+                        <input type="text" name="name">
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
