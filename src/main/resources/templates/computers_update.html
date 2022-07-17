@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование компьютеров</title>
+</head>
+<body>
+<div align="center">
+    <div>
+        <br>
+        <a href="computers">Вернуться к списку компьютеров</a>
+    </div>
+    <h3>
+        Редактировать компьютер
+    </h3>
+    <div>
+        <form action="computers-update" method="post" th:object="${computer}">
+            <input type="hidden" th:field="*{id}">
+            <table border="1">
+                <tr>
+                    <td>
+                        Номер инвентарный
+                    </td>
+                    <td>
+                        <input type="text" name="inventoryNumber" th:field="*{inventoryNumber}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Номер серийный
+                    </td>
+                    <td>
+                        <input type="text" name="serialNumber" th:field="*{serialNumber}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        В каком кабинете находится
+                    </td>
+                    <td>
+                        <select name="cabinet">
+                            <th:block th:each="cabinet : ${cabinets}">
+                                <option th:value="${cabinet.id}" th:text="${cabinet.number}"/>
+                            </th:block>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit">Изменить</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

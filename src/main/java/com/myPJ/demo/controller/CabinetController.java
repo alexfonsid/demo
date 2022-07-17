@@ -59,5 +59,4 @@ public class CabinetController {
         cabinetRepository.save(cabinet);
         return "redirect:cabinets";
     }
-
 }

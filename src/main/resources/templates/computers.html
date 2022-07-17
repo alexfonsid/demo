@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Компьютеры</title>
+</head>
+<body>
+<div align="center">
+    <div>
+        <br>
+        <a href="main">Вернуться на главную страницу</a>
+    </div>
+    <h1>
+        КОМПЬЮТЕРЫ
+    </h1>
+    <div>
+        <br>
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>Номер инвентарный</th>
+                <th>Номер серийный</th>
+                <th>Кабинет</th>
+                <th>Редактирование</th>
+                <th>Удаление</th>
+            </tr>
+            <tr th:each="computer:${computers}">
+                <td th:text="${computer.id}"></td>
+                <td th:text="${computer.inventoryNumber}"></td>
+                <td th:text="${computer.serialNumber}"></td>
+                <td th:text="${computer.cabinet.number}"></td>
+                <td>
+                    <a th:href="@{computers-update(id=${computer.id})}">
+                        <p style="color:#00007f">
+                            Редактировать
+                        </p>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{computers-delete(id=${computer.id})}">
+                        <p style="color:#ff0000">
+                            Удалить
+                        </p>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <br>
+        <a href="computers-add">Добавить новый компьютер</a>
+    </div>
+</div>
+</body>
+</html>
