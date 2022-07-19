@@ -1,0 +1,42 @@
+@PostMapping("/departments-add")
+    public String addDepartmentsFromFife
+            (@ModelAttribute Department departments, File fileDepartments)
+            throws IOException {
+        BufferedReader bufferedReader = null;
+        try {
+            BufferedReader reader = bufferedReader = new BufferedReader(new FileReader(fileDepartments));
+
+            String name = bufferedReader.readLine();
+            while (( ) )
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+
+//        int fileLength = fileInputStream.available();
+//        byte[] data = new byte[fileLength];
+//        fileInputStream.read(data);
+//        String fileData = new String(data);
+//        ArrayList<String[]> lineWords = new ArrayList<>();
+//        String[] strings = fileData.split("\n");
+//        for (String line : strings) {
+//            departmentRepository.save(departments);
+//        }
+        return "redirect:departments";
+    }
+//
+//    public static ArrayList<String[]> dataFromFile(String wayOfFile) throws IOException {
+//        FileInputStream filePC = new FileInputStream(wayOfFile);
+//        int fileLength = filePC.available();
+//
+//        byte[] data = new byte[fileLength];
+//        filePC.read(data);
+//        String filePCData = new String(data);
+//
+//        ArrayList<String[]> lineWords = new ArrayList<>();
+//        String[] strings = filePCData.split("\n");
+//        for (String line : strings) {
+//            String[] words = line.split(";");
+//            lineWords.add(words);
+//        }
+//        return lineWords;
+//    }

@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,23 +53,6 @@ public class DepartmentController {
     @PostMapping("/departments-add")
     public String addDepartment(@ModelAttribute Department department) {
         departmentRepository.save(department);
-        return "redirect:departments";
-    }
-
-    @PostMapping("/departments-add")
-    public String addDepartmentFromFife
-            (@ModelAttribute Department department, FileInputStream fileInputStream)
-            throws IOException {
-        int fileLength = fileInputStream.available();
-        byte[] data = new byte[fileLength];
-        fileInputStream.read(data);
-        String fileData = new String(data);
-        ArrayList<String[]> lineWords = new ArrayList<>();
-        String[] strings = fileData.split("\n");
-        for (String line : strings) {
-            String[] words = line.split(";");
-            departmentRepository.save(department);
-        }
         return "redirect:departments";
     }
 }
