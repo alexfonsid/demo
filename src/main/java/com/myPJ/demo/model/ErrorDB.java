@@ -19,9 +19,9 @@ public class ErrorDB {
         this.mistake = mistake;
     }
 
-    public ErrorDB(int id, String exception) {
+    public ErrorDB(int id, String mistake) {
         this.id = id;
-        this.mistake = exception;
+        this.mistake = mistake;
     }
 
     public int getId() {
