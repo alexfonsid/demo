@@ -15,8 +15,8 @@ public class ErrorDB {
     public ErrorDB() {
     }
 
-    public ErrorDB(String exception) {
-        this.mistake = exception;
+    public ErrorDB(String mistake) {
+        this.mistake = mistake;
     }
 
     public ErrorDB(int id, String exception) {
