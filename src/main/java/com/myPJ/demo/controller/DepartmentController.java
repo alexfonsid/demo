@@ -1,5 +1,6 @@
 package com.myPJ.demo.controller;
 
+import com.myPJ.demo.AddFromFile;
 import com.myPJ.demo.model.Department;
 import com.myPJ.demo.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class DepartmentController {
     @PostMapping("/departments-add")
     public String addDepartment(@ModelAttribute Department department) {
         departmentRepository.save(department);
+        return "redirect:departments";
+    }
+
+    public String addFromFileToDepartment(@ModelAttribute File file) {
+        AddFromFile.dataFromFile(file);
         return "redirect:departments";
     }
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Принтеры</title>
+</head>
+<body>
+<div align="center">
+    <div>
+        <br>
+        <a href="main">Вернуться на главную страницу</a>
+    </div>
+    <h1>
+        ПРИНТЕРЫ
+    </h1>
+    <div>
+        <br>
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>Номер инвентарный</th>
+                <th>Номер серийный</th>
+                <th>Кабинет</th>
+                <th>Редактирование</th>
+                <th>Удаление</th>
+            </tr>
+            <tr th:each="printer:${printers}">
+                <td th:text="${printer.id}"></td>
+                <td th:text="${printer.inventoryNumber}"></td>
+                <td th:text="${printer.serialNumber}"></td>
+                <td th:text="${printer.cabinet.number}"></td>
+                <td>
+                    <a th:href="@{printers-update(id=${printer.id})}">
+                        <p style="color:#00007f">
+                            Редактировать
+                        </p>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{printers-delete(id=${printer.id})}">
+                        <p style="color:#ff0000">
+                            Удалить
+                        </p>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <br>
+        <a href="printers-add">Добавить новый принтер</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,11 +1,9 @@
 package com.myPJ.demo.model;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 
 @Entity
-public class Computer {
+public class Monitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,7 +14,7 @@ public class Computer {
     @ManyToOne
     Cabinet cabinet;
 
-    public Computer() {
+    public Monitor() {
     }
 
     public int getId() {

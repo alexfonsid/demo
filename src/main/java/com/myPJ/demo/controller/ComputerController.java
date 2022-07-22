@@ -1,9 +1,10 @@
 package com.myPJ.demo.controller;
 
-import com.myPJ.demo.model.Cabinet;
 import com.myPJ.demo.model.Computer;
+import com.myPJ.demo.model.ErrorDB;
 import com.myPJ.demo.repository.CabinetRepository;
 import com.myPJ.demo.repository.ComputerRepository;
+import com.myPJ.demo.repository.ErrorDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-public class ComputerController {
+public class ComputerController extends SQLException {
     @Autowired
     ComputerRepository computerRepository;
     @Autowired
     CabinetRepository cabinetRepository;
+    @Autowired
+    ErrorDBRepository errorDBRepository;
 
     @GetMapping("/computers")
     public String showTableComputer(Model model) {
@@ -35,7 +39,7 @@ public class ComputerController {
     }
 
     @GetMapping("/computers-update")
-    public String updateCabinet(@RequestParam int id, Model model) {
+    public String updateComputer(@RequestParam int id, Model model) {
         Computer computer = computerRepository.findById(id).get();
         model.addAttribute("cabinets", cabinetRepository.findAll());
         model.addAttribute("computer", computer);
@@ -43,21 +47,38 @@ public class ComputerController {
     }
 
     @PostMapping("/computers-update")
-    public String updateCabinet(@ModelAttribute Computer computer) {
-        computerRepository.save(computer);
-        return "redirect:computers";
+    public String updateComputer(@ModelAttribute Computer computer) {
+        int id = 1;
+        String outPage = "redirect:computers";
+        try {
+            computerRepository.save(computer);
+        } catch (Exception e) {
+            ErrorDB errorDB = new ErrorDB(id, "Такой компьютер уже существует");
+            errorDBRepository.save(errorDB);
+            outPage = "redirect:errors";
+        }
+        return outPage;
     }
 
     @GetMapping("/computers-add")
     public String addComputer(Model model) {
         model.addAttribute("cabinets", cabinetRepository.findAll());
+
         return "computers_add";
     }
 
     @PostMapping("/computers-add")
-    public String addComputer(@ModelAttribute Computer computer) {
+    public String addComputer(@ModelAttribute Computer computer){
+        int id = 1;
+        String outPage = "redirect:computers";
+        try {
         computerRepository.save(computer);
-        return "redirect:computers";
+        } catch (Exception e) {
+            ErrorDB errorDB = new ErrorDB(id, "Такой компьютер уже существует");
+            errorDBRepository.save(errorDB);
+            outPage = "redirect:errors";
+        }
+        return outPage;
     }
 }
 
