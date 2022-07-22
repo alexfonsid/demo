@@ -1,7 +1,6 @@
 package com.myPJ.demo.controller;
 
 import com.myPJ.demo.model.Cabinet;
-import com.myPJ.demo.model.Department;
 import com.myPJ.demo.repository.CabinetRepository;
 import com.myPJ.demo.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,12 @@
 package com.myPJ.demo.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-public class Department implements Serializable {
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;

@@ -1,6 +1,5 @@
 package com.myPJ.demo.controller;
 
-import com.myPJ.demo.model.Computer;
 import com.myPJ.demo.model.ErrorDB;
 import com.myPJ.demo.model.Printer;
 import com.myPJ.demo.repository.CabinetRepository;
@@ -67,7 +66,7 @@ public class PrinterController {
     }
 
     @PostMapping("/printers-add")
-    public String addComputer(@ModelAttribute Printer printer){
+    public String addPrinter(@ModelAttribute Printer printer){
         int id = 2;
         String outPage = "redirect:printers";
         try {

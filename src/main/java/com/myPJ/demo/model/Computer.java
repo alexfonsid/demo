@@ -1,7 +1,5 @@
 package com.myPJ.demo.model;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 
 @Entity
