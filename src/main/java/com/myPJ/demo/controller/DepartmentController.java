@@ -1,23 +1,28 @@
 package com.myPJ.demo.controller;
 
-import com.myPJ.demo.AddFromFile;
+import com.myPJ.demo.exception.CustomException;
 import com.myPJ.demo.model.Department;
+import com.myPJ.demo.model.ErrorDB;
 import com.myPJ.demo.repository.DepartmentRepository;
+import com.myPJ.demo.repository.ErrorDBRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.util.List;
 
 @Controller
+@SessionAttributes("filename")
 public class DepartmentController {
     @Autowired
     DepartmentRepository departmentRepository;
+    @Autowired
+    ErrorDBRepository errorDBRepository;
 
     @GetMapping("/departments")
     public String showTableDepartment(Model model) {
@@ -51,13 +56,14 @@ public class DepartmentController {
     }
 
     @PostMapping("/departments-add")
-    public String addDepartment(@ModelAttribute Department department) {
-        departmentRepository.save(department);
-        return "redirect:departments";
-    }
+    public String addDepartment(@Validated @ModelAttribute Department department) {
+        try {
+            departmentRepository.save(department);
+        } catch (Exception e) {
+            e.printStackTrace();
 
-    public String addFromFileToDepartment(@ModelAttribute File file) {
-        AddFromFile.dataFromFile(file);
+            errorDBRepository.save(new ErrorDB( "Can't add department"));
+        }
         return "redirect:departments";
     }
 }

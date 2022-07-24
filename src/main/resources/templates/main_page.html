@@ -6,51 +6,107 @@
 </head>
 <body>
 <div align="center">
-    Привет мир!!
     <div>
         <br>
         <table>
             <tr>
-                <td width="170" align="center">
+                <td align="center">
                     <a href="departments">
                         <h1>
                             Отделы
                         </h1>
                     </a>
                 </td>
-                <td width="10"></td>
-                <td width="170" align="center">
+                <td>
+                    <form method="post" enctype="multipart/form-data" action="uploadFileDepartments">
+                        <table>
+                            <tr>
+                                <td>Загрузить из файла:</td>
+                                <td><input type="file" name="fileDepartments" accept="text/csv"></td>
+                                <td><input type="submit" value="Загрузить"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
                     <a href="cabinets">
                         <h1>
                             Кабинеты
                         </h1>
                     </a>
                 </td>
+                <td>
+                    <form method="post" enctype="multipart/form-data" action="uploadFileCabinets">
+                        <table>
+                            <tr>
+                                <td>Загрузить из файла:</td>
+                                <td><input type="file" name="fileCabinets" accept="text/csv"></td>
+                                <td><input type="submit" value="Загрузить"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
             </tr>
             <tr>
-                <td width="170" align="center">
+                <td align="center">
                     <a href="computers">
                         <h2>
                             Системники
                         </h2>
                     </a>
                 </td>
-                <td width="10"></td>
-                <td width="170" align="center">
+                <td>
+                    <form method="post" enctype="multipart/form-data" action="uploadComputers">
+                        <table>
+                            <tr>
+                                <td>Загрузить из файла:</td>
+                                <td><input type="file" name="fileComputers" accept="text/csv"></td>
+                                <td><input type="submit" value="Загрузить"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
                     <a href="monitors">
                         <h2>
                             Мониторы
                         </h2>
                     </a>
                 </td>
+                <td>
+                    <form method="post" enctype="multipart/form-data" action="uploadFileMonitors">
+                        <table>
+                            <tr>
+                                <td>Загрузить из файла:</td>
+                                <td><input type="file" name="fileMonitors" accept="text/csv"></td>
+                                <td><input type="submit" value="Загрузить"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
             </tr>
             <tr>
-                <td width="170" align="center">
+                <td align="center">
                     <a href="printers">
                         <h2>
                             Принтеры
                         </h2>
                     </a>
+                </td>
+                <td>
+                    <form method="post" enctype="multipart/form-data" action="uploadFilePrinters">
+                        <table>
+                            <tr>
+                                <td>Загрузить из файла:</td>
+                                <td><input type="file" name="filePrinters" accept="text/csv"></td>
+                                <td><input type="submit" value="Загрузить"></td>
+                            </tr>
+                        </table>
+                    </form>
                 </td>
             </tr>
         </table>

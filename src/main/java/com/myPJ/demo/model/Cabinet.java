@@ -8,6 +8,7 @@ public class Cabinet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(unique = true)
     String number;
     String name;
     @ManyToOne

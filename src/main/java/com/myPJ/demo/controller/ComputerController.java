@@ -1,5 +1,6 @@
 package com.myPJ.demo.controller;
 
+import com.myPJ.demo.exception.CustomException;
 import com.myPJ.demo.model.Computer;
 import com.myPJ.demo.model.ErrorDB;
 import com.myPJ.demo.repository.CabinetRepository;
@@ -8,6 +9,7 @@ import com.myPJ.demo.repository.ErrorDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,16 +49,17 @@ public class ComputerController extends SQLException {
     }
 
     @PostMapping("/computers-update")
-    public String updateComputer(@ModelAttribute Computer computer) {
+    public String updateComputer(@ModelAttribute @Validated Computer computer) {
         int id = 1;
         String outPage = "redirect:computers";
-        try {
-            computerRepository.save(computer);
-        } catch (Exception e) {
-            ErrorDB errorDB = new ErrorDB(id, "Такой компьютер уже существует");
-            errorDBRepository.save(errorDB);
-            outPage = "redirect:errors";
-        }
+//        try {
+        computerRepository.save(computer);
+//        } catch (CustomException customException) {
+//            String message = customException.getMessage();
+//            ErrorDB errorDB = new ErrorDB(id, message);
+//            errorDBRepository.save(errorDB);
+//            outPage = "redirect:errors";
+//        }
         return outPage;
     }
 
@@ -68,9 +71,10 @@ public class ComputerController extends SQLException {
     }
 
     @PostMapping("/computers-add")
-    public String addComputer(@ModelAttribute Computer computer){
+    public String addComputer(@ModelAttribute Computer computer) throws CustomException {
         int id = 1;
         String outPage = "redirect:computers";
+
         try {
         computerRepository.save(computer);
         } catch (Exception e) {
@@ -78,6 +82,7 @@ public class ComputerController extends SQLException {
             errorDBRepository.save(errorDB);
             outPage = "redirect:errors";
         }
+
         return outPage;
     }
 }
