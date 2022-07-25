@@ -11,11 +11,7 @@ public class CustomException extends Exception {
         super(cause);
     }
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Can't ADD")
-    public void exceptionCantAdd() {
+    public CustomException(String message, Throwable cause) {
+        super(message, cause);
     }
-
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Can't UPDATE")
-    public void exceptionCantUpdate() {}
-
 }

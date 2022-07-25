@@ -1,23 +1,22 @@
 package com.myPJ.demo.controller;
 
-import com.myPJ.demo.exception.CustomException;
 import com.myPJ.demo.model.Department;
 import com.myPJ.demo.model.ErrorDB;
 import com.myPJ.demo.repository.DepartmentRepository;
 import com.myPJ.demo.repository.ErrorDBRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SessionAttributes("filename")
 public class DepartmentController {
     @Autowired
     DepartmentRepository departmentRepository;
@@ -46,8 +45,15 @@ public class DepartmentController {
 
     @PostMapping("/departments-update")
     public String updateDepartment(@ModelAttribute Department department) {
-        departmentRepository.save(department);
-        return "redirect:departments";
+        String outPage = "redirect:departments";
+        try {
+            departmentRepository.save(department);
+        } catch (Exception exception) {
+            ErrorDB errorUpdate = new ErrorDB(1, "Такой отдел уже существует. Can't UPDATE.");
+            errorDBRepository.save(errorUpdate);
+            outPage = "redirect:errors";
+        }
+        return outPage;
     }
 
     @GetMapping("/departments-add")
@@ -56,14 +62,15 @@ public class DepartmentController {
     }
 
     @PostMapping("/departments-add")
-    public String addDepartment(@Validated @ModelAttribute Department department) {
+    public String addDepartment(@ModelAttribute Department department) {
+        String outPage = "redirect:departments";
         try {
             departmentRepository.save(department);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            errorDBRepository.save(new ErrorDB( "Can't add department"));
+        } catch (Exception exception) {
+            ErrorDB errorAdd = new ErrorDB(1, "Такой отдел уже существует. Can't ADD.");
+            errorDBRepository.save(errorAdd);
+            outPage = "redirect:errors";
         }
-        return "redirect:departments";
+        return outPage;
     }
 }

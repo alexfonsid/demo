@@ -1,8 +1,10 @@
 package com.myPJ.demo.controller;
 
 import com.myPJ.demo.model.Cabinet;
+import com.myPJ.demo.model.ErrorDB;
 import com.myPJ.demo.repository.CabinetRepository;
 import com.myPJ.demo.repository.DepartmentRepository;
+import com.myPJ.demo.repository.ErrorDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class CabinetController {
     CabinetRepository cabinetRepository;
     @Autowired
     DepartmentRepository departmentRepository;
+    @Autowired
+    ErrorDBRepository errorDBRepository;
 
     @GetMapping("/cabinets")
     public String showTableCabinet(Model model) {
@@ -43,8 +47,15 @@ public class CabinetController {
 
     @PostMapping("/cabinets-update")
     public String updateCabinet(@ModelAttribute Cabinet cabinet) {
-        cabinetRepository.save(cabinet);
-        return "redirect:cabinets";
+        String outPage = "redirect:cabinets";
+        try {
+            cabinetRepository.save(cabinet);
+        } catch (Exception exception) {
+            ErrorDB errorUpdate = new ErrorDB(1, "Такой кабинет уже существует. Can't UPDATE.");
+            errorDBRepository.save(errorUpdate);
+            outPage = "redirect:errors";
+        }
+        return outPage;
     }
 
     @GetMapping("/cabinets-add")
@@ -55,7 +66,14 @@ public class CabinetController {
 
     @PostMapping("/cabinets-add")
     public String addCabinet(@ModelAttribute Cabinet cabinet) {
-        cabinetRepository.save(cabinet);
-        return "redirect:cabinets";
+        String outPage = "redirect:cabinets";
+        try {
+            cabinetRepository.save(cabinet);
+        } catch (Exception exception) {
+            ErrorDB errorAdd = new ErrorDB(1, "Такой кабинет уже существует. Can't ADD.");
+            errorDBRepository.save(errorAdd);
+            outPage = "redirect:errors";
+        }
+        return outPage;
     }
 }

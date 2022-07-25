@@ -15,7 +15,6 @@ public class ErrorDBController {
     @GetMapping("/errors")
     public String errorsList(Model model) {
         ErrorDB errorDB = errorDBRepository.findById(1).get();
-//        ErrorDB errorDB = new ErrorDB("Invalid Data");
         model.addAttribute("error", errorDB.toString());
         return "errors";
     }

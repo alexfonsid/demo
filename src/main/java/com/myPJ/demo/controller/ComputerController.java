@@ -9,12 +9,12 @@ import com.myPJ.demo.repository.ErrorDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -49,40 +49,34 @@ public class ComputerController extends SQLException {
     }
 
     @PostMapping("/computers-update")
-    public String updateComputer(@ModelAttribute @Validated Computer computer) {
-        int id = 1;
+    public String updateComputer(@ModelAttribute Computer computer) {
         String outPage = "redirect:computers";
-//        try {
-        computerRepository.save(computer);
-//        } catch (CustomException customException) {
-//            String message = customException.getMessage();
-//            ErrorDB errorDB = new ErrorDB(id, message);
-//            errorDBRepository.save(errorDB);
-//            outPage = "redirect:errors";
-//        }
+        try {
+            computerRepository.save(computer);
+        } catch (Exception exception) {
+            ErrorDB errorUpdate = new ErrorDB(1, "Такой компьютер уже существует. Can't UPDATE.");
+            errorDBRepository.save(errorUpdate);
+            outPage = "redirect:errors";
+        }
         return outPage;
     }
 
     @GetMapping("/computers-add")
     public String addComputer(Model model) {
         model.addAttribute("cabinets", cabinetRepository.findAll());
-
         return "computers_add";
     }
 
     @PostMapping("/computers-add")
-    public String addComputer(@ModelAttribute Computer computer) throws CustomException {
-        int id = 1;
+    public String addComputer(@ModelAttribute Computer computer) {
         String outPage = "redirect:computers";
-
         try {
-        computerRepository.save(computer);
-        } catch (Exception e) {
-            ErrorDB errorDB = new ErrorDB(id, "Такой компьютер уже существует");
-            errorDBRepository.save(errorDB);
+            computerRepository.save(computer);
+        } catch (Exception exception) {
+            ErrorDB errorAdd = new ErrorDB(1, "Такой компьютер уже существует. Can't ADD.");
+            errorDBRepository.save(errorAdd);
             outPage = "redirect:errors";
         }
-
         return outPage;
     }
 }

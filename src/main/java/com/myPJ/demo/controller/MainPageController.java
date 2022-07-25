@@ -18,17 +18,4 @@ public class MainPageController {
     public String showMainPage() {
         return "main_page";
     }
-
-    public String uploadFileDepartments(@RequestParam("uploadedFile") File uploadedFile) {
-        try {
-            Scanner scanner = new Scanner(uploadedFile);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                System.out.println(line);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return "redirect:departments";
-    }
 }

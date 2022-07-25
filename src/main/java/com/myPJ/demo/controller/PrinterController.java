@@ -47,13 +47,12 @@ public class PrinterController {
 
     @PostMapping("/printers-update")
     public String updatePrinter(@ModelAttribute Printer printer) {
-        int id = 2;
         String outPage = "redirect:printers";
         try {
             printerRepository.save(printer);
         } catch (Exception e) {
-            ErrorDB errorDB = new ErrorDB(id, "Такой принтер уже существует");
-            errorDBRepository.save(errorDB);
+            ErrorDB errorUpdate = new ErrorDB(1, "Такой принтер уже существует. Can't UPDATE.");
+            errorDBRepository.save(errorUpdate);
             outPage = "redirect:errors";
         }
         return outPage;
@@ -67,13 +66,12 @@ public class PrinterController {
 
     @PostMapping("/printers-add")
     public String addPrinter(@ModelAttribute Printer printer){
-        int id = 2;
         String outPage = "redirect:printers";
         try {
             printerRepository.save(printer);
         } catch (Exception e) {
-            ErrorDB errorDB = new ErrorDB(id, "Такой принтер уже существует");
-            errorDBRepository.save(errorDB);
+            ErrorDB errorAdd = new ErrorDB(1, "Такой принтер уже существует. Can't ADD.");
+            errorDBRepository.save(errorAdd);
             outPage = "redirect:errors";
         }
         return outPage;
