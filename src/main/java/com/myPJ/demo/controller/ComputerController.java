@@ -1,6 +1,5 @@
 package com.myPJ.demo.controller;
 
-import com.myPJ.demo.exception.CustomException;
 import com.myPJ.demo.model.Computer;
 import com.myPJ.demo.model.ErrorDB;
 import com.myPJ.demo.repository.CabinetRepository;
@@ -14,12 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-public class ComputerController extends SQLException {
+public class ComputerController {
     @Autowired
     ComputerRepository computerRepository;
     @Autowired
