@@ -1,20 +1,33 @@
 package com.myPJ.demo.controller;
 
+import com.myPJ.demo.model.Department;
 import com.myPJ.demo.repository.DepartmentRepository;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
+import javax.persistence.SecondaryTable;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
-public class MainPageController {
+public class MainPageController extends HttpServlet {
+    private Set<Department> departmentSet = new HashSet<>();
+
     @Autowired
     DepartmentRepository departmentRepository;
 
@@ -23,16 +36,22 @@ public class MainPageController {
         return "main_page";
     }
 
-//    @PostMapping("uploadFileDepartment")
-//    public String uploadFileDepartment(@RequestParam("file")MultipartFile file, Model model) throws IOException {
-//        FileInputStream stream = new FileInputStream((File) file);
-//        int length = stream.available();
-//        byte[] data = new byte[length];
-//        stream.read(data);
-//        String text = new String(data);
-//
-//
-//
-//        return null;
-//    }
+    @PostMapping("/upload-file-department")
+    public String uploadFileDepartment(@RequestParam("fileDepartments") MultipartFile multipartFile) throws IOException {
+        InputStream stream = multipartFile.getInputStream();
+        int length = stream.available();
+        byte[] data = new byte[length];
+        stream.read(data);
+        String text = new String(data);
+        String[] lines = text.split("\n");
+        for (String line : lines) {
+            if(line != null){
+                departmentSet.add(new Department(line));
+            }
+        }
+        for (Department curDepartment: departmentSet) {
+            departmentRepository.save(curDepartment);
+        }
+        return "redirect:departments";
+    }
 }
