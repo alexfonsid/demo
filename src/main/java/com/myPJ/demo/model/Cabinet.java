@@ -22,6 +22,12 @@ public class Cabinet {
         this.name = name;
     }
 
+    public Cabinet(String number, String name, Department department) {
+        this.number = number;
+        this.name = name;
+        this.department = department;
+    }
+
     public Cabinet(int id, String number, String name, Department department) {
         this.id = id;
         this.number = number;

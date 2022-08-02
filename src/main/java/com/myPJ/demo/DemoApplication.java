@@ -11,8 +11,8 @@ import java.sql.Statement;
 @SpringBootApplication
 public class DemoApplication {
 	public static void main(String[] args) {
-//		SpringApplication.run(DemoApplication.class, args);
-	DemoApplication.putDataFromBase();
+		SpringApplication.run(DemoApplication.class, args);
+//	DemoApplication.putDataFromBase();
 	}
 
 	public static void putDataFromBase() {

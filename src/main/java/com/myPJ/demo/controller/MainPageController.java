@@ -2,8 +2,7 @@ package com.myPJ.demo.controller;
 
 import com.myPJ.demo.model.Cabinet;
 import com.myPJ.demo.model.Department;
-import com.myPJ.demo.repository.CabinetRepository;
-import com.myPJ.demo.repository.DepartmentRepository;
+import com.myPJ.demo.repository.*;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -39,6 +38,11 @@ public class MainPageController extends HttpServlet {
     @Autowired
     CabinetRepository cabinetRepository;
     @Autowired
+    ComputerRepository computerRepository;
+    @Autowired
+    MonitorRepository monitorRepository;
+    @Autowired
+    PrinterRepository printerRepository;
 
     @GetMapping("/main")
     public String showMainPage() {
@@ -60,12 +64,8 @@ public class MainPageController extends HttpServlet {
         for (String line : lines) {
             if(line != null){
                 departmentRepository.save(new Department(line));
-//                departmentSet.add(new Department(line));
             }
         }
-//        for (Department curDepartment: departmentSet) {
-//            departmentRepository.save(curDepartment);
-//        }
         return "redirect:departments";
     }
 
@@ -74,12 +74,34 @@ public class MainPageController extends HttpServlet {
         String[] lines = fromFileToLines(multipartFile);
         for (String line : lines) {
             String[] words = line.split(";");
-            for (int i = 0; i < words.length; ) {
-                cabinetRepository.save(new Cabinet(words[i], words[i + 1]));
-                i += 2;
+            for (int i = 0; i < words.length; i += 2) {
+                cabinetRepository.save(new Cabinet(words[i], words[i + 1], new Department(1, "")));
             }
         }
         return "redirect:cabinets";
     }
 
+    @PostMapping("uploadComputers")
+    public String uploadFileComputer(@RequestParam("fileComputers") MultipartFile multipartFile) throws IOException {
+        String[] lines = fromFileToLines(multipartFile);
+        for (String line : lines) {
+            String[] words = line.split(";");
+            for (int i = 0; i < words.length; i += 2) {
+
+            }
+        }
+        return "redirect:cabinets";
+    }
+
+    @PostMapping("uploadFileMonitors")
+    public String uploadFileMonitor(@RequestParam("fileCabinets") MultipartFile multipartFile) throws IOException {
+        String[] lines = fromFileToLines(multipartFile);
+        for (String line : lines) {
+            String[] words = line.split(";");
+            for (int i = 0; i < words.length; i += 2) {
+                cabinetRepository.save(new Cabinet(words[i], words[i + 1], new Department(1, "")));
+            }
+        }
+        return "redirect:cabinets";
+    }
 }
